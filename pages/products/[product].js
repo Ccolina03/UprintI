@@ -1,9 +1,10 @@
+import ProductPageContent from '../../components/ProductPageContent'
 import {getProduct, getAllProducts} from '../../lib/shopify'
 
 export default function ProductPage({product}) {
   return (
     <div>
-      {product.title}
+      <ProductPageContent product = {product}/>
     </div>
   )
 }
