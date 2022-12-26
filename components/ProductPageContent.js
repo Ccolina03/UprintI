@@ -1,4 +1,5 @@
 import Image from "next/dist/client/image"
+import ProductForm from "./ProductForm"
 
 export default function ProductPageContent({product}) {
     return (
@@ -12,6 +13,7 @@ export default function ProductPageContent({product}) {
                     objectFit="cover"/>
                 </div>
             </div>
+            <ProductForm product={product} />
         </div>
     )
 }
