@@ -5,6 +5,7 @@ import ProductOptions from "./ProductOptions"
 
 
 export default function ProductForm({product}) {
+    console.log(product)
     const allVariantOptions= product.variants.edges?.map(variant => {
         const allOptions = {}
 
