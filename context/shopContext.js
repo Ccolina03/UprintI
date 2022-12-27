@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import {createCheckout, updateCheckout} from '../lib/shopify'
 
+
 const CartContext=createContext()
 export default function ShopProvider({children}) {
     const [cart, setCart] = useState([])
@@ -8,9 +9,28 @@ export default function ShopProvider({children}) {
     const [checkoutId, setCheckoutId] = useState('')
     const [checkoutUrl, setCheckoutUrl] = useState('')
     
+   
+    useEffect(() => { //handling if 0 or more items in Cart  
+        if (localStorage.checkout_id) {
+            const cartObject = JSON.parse(localStorage.checkout_id)
+            if (cartObject[0].id) {
+                setCart(cartObject[0])
+            } else if (cartObject[0].length > 0) {
+                setCart(...[cartObject[0]])
+            }
+
+            setCheckoutId(cartObject[1].id)
+            setCheckoutUrl(cartObject[1].webUrl)
+        }
+    }, [])
+   
+   
+   
+   
     async function addToCart(newItem){
         if (cart.length ===0) {
             setCart([newItem])
+            console.log(newItem)
 
         const checkout = await createCheckout(newItem.id, newItem.variantQuantity)
         setCheckoutId(checkout.id)
@@ -19,16 +39,16 @@ export default function ShopProvider({children}) {
         localStorage.setItem('checkout_id', JSON.stringify([newItem, checkout]))
     } else {
         let newCart = []
-        let adding = false
+        let added = false
 
         cart.map(item => { //check if item exists to increase and pass to NewCart
             if (item.id === newItem.id) {
                 item.variantQuantity++
                 newCart = [...cart]
-                adding = true }
+                added = true }
         })
 
-        if(!adding) {
+        if(!added) {
             newCart = [...cart, newItem]
         }
         setCart(newCart) //update after adding Cart feature
@@ -48,4 +68,4 @@ export default function ShopProvider({children}) {
 
 const ShopConsumer = CartContext.Consumer 
 
-export{ShopConsumer, CartContext}
+export{CartContext, ShopConsumer}
