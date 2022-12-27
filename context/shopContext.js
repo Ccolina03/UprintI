@@ -1,8 +1,8 @@
 import { createContext, useState, useEffect } from "react";
-import {createCheckout} from '../lib/shopify'
+import {createCheckout, updateCheckout} from '../lib/shopify'
 
 const CartContext=createContext()
-export default function shopProvider({children}) {
+export default function ShopProvider({children}) {
     const [cart, setCart] = useState([])
     const [cartOpen, setCartOpen]=useState(false)
     const [checkoutId, setCheckoutId] = useState('')
@@ -10,7 +10,7 @@ export default function shopProvider({children}) {
     
     async function addToCart(newItem){
         if (cart.length ===0) {
-            setCart(newItem)
+            setCart([newItem])
 
         const checkout = await createCheckout(newItem.id, newItem.variantQuantity)
         setCheckoutId(checkout.id)
@@ -18,25 +18,34 @@ export default function shopProvider({children}) {
 
         localStorage.setItem('checkout_id', JSON.stringify([newItem, checkout]))
     } else {
-        let newCart = {...cart} 
+        let newCart = []
+        let adding = false
+
         cart.map(item => { //check if item exists to increase and pass to NewCart
             if (item.id === newItem.id) {
                 item.variantQuantity++
-                newCart = {...cart}
-            }
-            else 
-            {
-                newCart= {...cart, newItem} //copy last cart if id did not match
-            }
+                newCart = [...cart]
+                adding = true }
         })
+
+        if(!adding) {
+            newCart = [...cart, newItem]
+        }
         setCart(newCart) //update after adding Cart feature
+        const newCheckout = await updateCheckout(checkoutId, newCart)
+        localStorage.setItem('checkout_id', JSON.stringify([newCart, newCheckout]))
     }
     }
     
 
-    return (
-        <div> 
 
-        </div>
+    return (
+        <CartContext.Provider value={{cart, cartOpen, setCartOpen, addToCart, checkoutUrl}} >
+        {children}
+        </CartContext.Provider>
     )
 }
+
+const ShopConsumer = CartContext.Consumer 
+
+export{ShopConsumer, CartContext}
