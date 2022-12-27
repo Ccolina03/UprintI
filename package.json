@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && react-scripts build"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@headlessui/react": "^1.4.0",
@@ -11,8 +11,7 @@
     "cross-env": "^7.0.3",
     "next": "latest",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "yarn": "^1.22.19"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
