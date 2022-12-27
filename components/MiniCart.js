@@ -7,6 +7,8 @@ import { formatter } from '../utils/helpers'
 
 
 export default function MiniCart({ cart }) {
+    
+    const cancelButtonRef = useRef() //monitorRefreshingError 
     const { cartOpen, setCartOpen, checkoutUrl } = useContext(CartContext)
 
     let cartTotal = 0
@@ -17,6 +19,7 @@ export default function MiniCart({ cart }) {
     return (
         <Transition.Root show={cartOpen} as={Fragment}>
       <Dialog 
+        initialFocus={cancelButtonRef}
         as="div" 
         className="fixed z-50 overflow-hidden" 
         onClose={() => { setCartOpen(!cartOpen)}}>
@@ -51,6 +54,7 @@ export default function MiniCart({ cart }) {
                       <div className="ml-3 h-7 flex items-center">
                         <button
                           type="button"
+                          ref={cancelButtonRef}
                           className="-m-2 p-2 text-gray-400 hover:text-gray-500"
                           onClick={() => setCartOpen(false)}
                         >
@@ -110,7 +114,7 @@ export default function MiniCart({ cart }) {
                                 <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                 <div className="mt-6">
                                   <a
-                                    href="#"
+                                    href={checkoutUrl}
                                     className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-black hover:bg-gray-800"
                                   >
                                     Checkout
