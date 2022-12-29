@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ProductOptions({name, values, selectedOptions, setOptions}) {
   return (
-    <fieldset>
+    <fieldset className='mt-3'>
         <legend className='text-xl font-semibold'>
             {name}
         </legend>

@@ -4,6 +4,7 @@ import { XIcon } from '@heroicons/react/outline'
 import Image from 'next/image'
 import { CartContext } from '../context/shopContext'
 import { formatter } from '../utils/helpers'
+import Link from 'next/dist/client/link'
 
 
 export default function MiniCart({ cart }) {
@@ -66,7 +67,9 @@ export default function MiniCart({ cart }) {
 
                     <div className="mt-8">
                       <div className="flow-root">
-                        <ul role="list" className="-my-6 divide-y divide-gray-200">
+                        {
+                          cart.length > 0  ?  
+                          <ul role="list" className="-my-6 divide-y divide-gray-200">
                           {cart.map((product) => (
                             <li key={product.id + Math.random()} className="py-6 flex">
                               <div className="relative flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
@@ -82,7 +85,10 @@ export default function MiniCart({ cart }) {
                                 <div>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
                                     <h3>
-                                      <a href={product.href}>{product.title}</a>
+                                      <Link href={`/products/${product.handle}`}>
+                                      <a onClick={() => setCartOpen(false)}>{product.title}</a>
+                                      </Link>
+                                    
                                     </h3>
                                     <p className="ml-4">{formatter.format(product.variantPrice)}</p>
                                   </div>
@@ -102,7 +108,16 @@ export default function MiniCart({ cart }) {
                               </div>
                             </li>
                           ))}
-                        </ul>
+                        </ul> :   
+                        <div>
+                          <div className="mt-0.5">
+              
+                                  <Link href={`/`}>
+                                    <a  className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-black hover:bg-gray-800" onClick={() => setCartOpen(false)}> Shopping cart empty. Add products!</a>
+                                      </Link>
+                                </div>
+                        </div>
+}
                       </div>
                     </div>
                   </div>

@@ -52,7 +52,7 @@ export default function ProductForm({product}) {
 
     <div className="rounded 2xl shadow-lg p-4 flex flex-col w-full md:w-1/3 ">
         <h2 className="text-2xl font-bold"> {product.title} </h2>
-      <span className="pb-6">{formatter.format(product.variants.edges[0].node.price.amount)}
+      <span className="pb-3">{formatter.format(product.variants.edges[0].node.price.amount)}
       </span>
       {
         product.options.map(({ name, values}) => (
@@ -68,7 +68,7 @@ export default function ProductForm({product}) {
       <button
       onClick={() => {
         addToCart(selectedVariant)
-      }} className="bg-black text-white rounded-lg px-2 py-3 hover:bg-gray800"> Add + To Card</button>
+      }} className="bg-black text-white rounded-lg mt-3 px-2 py-3 hover:bg-gray800"> Add + To Card</button>
     </div>
   )
     }
