@@ -2,6 +2,7 @@ import {getProductsInCollection} from '../lib/shopify'
 import ProductList from '../components/ProductList'
 import Hero from '../components/Hero'
 import Head from 'next/head'
+import AddOn from '../components/AddOn'
 
 
 export default function Home({ products }) {
@@ -9,8 +10,8 @@ export default function Home({ products }) {
     <div>
       <Head> 
         <title> UPrintI eCommerce Store</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+        <meta http-Equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-Equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
         <meta name="description" content='Ecommerce store created with Next.js, TailwindCSS, GraphQL and Shopify with primary mission to help my mom sell our childhood toys 
         and get a future revenue to fund our education. Addtional functionalities would be facilitating entrepreneurships to display and sell their products and services' />
         <meta property="og:title" content="UPrinti eCommerce Store" />
@@ -25,6 +26,7 @@ export default function Home({ products }) {
 
       </Head>
       <Hero/>
+      <AddOn/>
       <ProductList products={products}/>
     </div>
   )

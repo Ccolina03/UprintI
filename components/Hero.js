@@ -3,7 +3,7 @@ import Link from "next/dist/client/link";
 //Main Homepage (top of Products List)
 export default function Hero() {
   return (
-    <div className="my-48 mx-auto px-4 max-w-7xl sm:mt-24 md:mt-72 text-center">
+    <div className="my-48 mx-auto  px-4 max-w-7xl sm:mt-24 md:mt-72 text-center">
       <h1 className=" text-gray-900 font-extrabold">
         <p className="text-xl sm:text-3xl md:text-4xl">UPrintI </p>
         <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-pink-500 to-red-text-4xl sm:text-6xl md:text-7xl"> eCommerce store</p>
