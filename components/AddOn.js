@@ -24,8 +24,8 @@ export default function AddOn({product_specific}) {
                 <Image
                   src={url}
                   alt={altText}
-                  layout="fill"
-                  objectFit="cover"
+                  width={5000}
+                  height={9000}
                 />
               </div>
             </div>
@@ -47,8 +47,9 @@ export default function AddOn({product_specific}) {
                 <Image
                   src={product_specific.edges[0].node.images.edges[0].node.url} //puss-with-boots
                   alt={product_specific.edges[0].node.images.edges[0].node.altText}
-                  layout="fill"
-                  objectFit="cover"
+                  objectFit="contain"
+                  width={4500}
+                  height={8000}
                 />
               </div>
             </div>
@@ -56,7 +57,7 @@ export default function AddOn({product_specific}) {
             <p className="mt-4">
               <span className="text-2xl text-white line-through">$5</span><span className="mt-4 text-3xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-400 font-semibold"> Just $1</span>
             </p>
-            <h3 className="mt-4 text-xl font-bold text-gray-300"> Puss with Boots </h3>
+            <h3 className="mt-4 text-xl font-bold text-gray-300"> Puss in Boots </h3>
             <p className="mt-1 text-sm text-gray-400">The famous Shrek character is back! Get this small, but powerful and adorable character for less than a Tim Hortons Coffee.  </p>
           </div>
           </Link>
