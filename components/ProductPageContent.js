@@ -4,11 +4,14 @@ import SwiperCore, {Navigation, Pagination} from 'swiper'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import RecommendedList from "./RecommendedList"
 
+//This is the visible content of /products/${handle}
+//ProductPageContent is called in [product.js] with the in-depth details of specific product 
 
 export default function ProductPageContent({product}) {
 
     const images = []
-
+    //Adding Swiping functionality to any image quantity in the database. 
+    //Saving each image in images array.
     product.images.edges.map((image, i) => {
         images.push(
             <SwiperSlide key={`slide-${i}`}>
@@ -18,6 +21,8 @@ export default function ProductPageContent({product}) {
     })
 
     SwiperCore.use([Navigation, Pagination])
+    
+    //Three sections: Image, Product Forms (options, variants,etc) and Recommended Selection
 return (
         <div>
 

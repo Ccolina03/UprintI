@@ -7,3 +7,5 @@ module.exports = {
     domains: ['cdn.shopify.com']
   }
 }
+
+//images from external source, optimizing fetching with Next.js

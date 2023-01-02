@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 
 function MyApp({ Component, pageProps }) {
 
+  //Layout here wraps all the components 
   const router =useRouter()
   return (
     <ShopProvider>
