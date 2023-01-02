@@ -9,7 +9,7 @@ export default function Hero() {
         <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-pink-500 to-red-text-4xl sm:text-6xl md:text-7xl"> eCommerce store</p>
       </h1>
       <h2 className="mt-3 max-w-md mx-auto text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-x-3xl">
-        Make the Next step
+        Make the Next Step
       </h2>
       <div className="mt-5 max-w-md mx-auto justify-center flex items-center md:mt-8"></div>
         <Link href='/products/player-ready'>
