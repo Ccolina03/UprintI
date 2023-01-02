@@ -24,8 +24,8 @@ export default function AddOn({product_specific}) {
                 <Image
                   src={url}
                   alt={altText}
-                  width={5000}
-                  height={9000}
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
             </div>
@@ -47,9 +47,8 @@ export default function AddOn({product_specific}) {
                 <Image
                   src={product_specific.edges[0].node.images.edges[0].node.url} //puss-with-boots
                   alt={product_specific.edges[0].node.images.edges[0].node.altText}
-                  objectFit="contain"
-                  width={4500}
-                  height={8000}
+                  layout="fill"
+                objectFit="cover"
                 />
               </div>
             </div>
