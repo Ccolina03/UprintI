@@ -2,10 +2,27 @@ import { formatter } from "../utils/helpers"
 import { useState, useContext } from "react"
 import ProductOptions from "./ProductOptions"
 import { CartContext } from "../context/shopContext"
+import useSWR from "swr"
+import axios from "axios"
 
+const fetchInventory = (url, id) =>
+  axios
+    .get(url, {
+      params: {
+        id: id,
+      },
+    })
+    .then((res) => res.data)
 
-//ProductForm is called in ProductPageContent with the in-depth details of specific product
-export default function ProductForm({product}) {
+export default function ProductForm({ product }) {
+
+  const { data: productInventory } = useSWR(
+    ['/api/available', product.handle],
+    (url, id) => fetchInventory(url, id),
+    { errorRetryCount: 3 }
+  )
+
+    //Introducing SWR hook and passing url and id
 
     const {addToCart} = useContext(CartContext)
 
