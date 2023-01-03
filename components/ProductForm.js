@@ -5,24 +5,23 @@ import { CartContext } from "../context/shopContext"
 import useSWR from "swr"
 import axios from "axios"
 
-const fetchInventory = (url, id) =>
+const fetchInventory = (url, id) =>(
   axios
     .get(url, {
       params: {
         id: id,
       },
     })
-    .then((res) => res.data)
+    .then((res) => res.data))
 
 export default function ProductForm({ product }) {
-
+ //Introducing SWR hook and passing url and id
   const { data: productInventory } = useSWR(
     ['/api/available', product.handle],
     (url, id) => fetchInventory(url, id),
     { errorRetryCount: 3 }
   )
-
-    //Introducing SWR hook and passing url and id
+  console.log(productInventory)
 
     const {addToCart} = useContext(CartContext)
 
