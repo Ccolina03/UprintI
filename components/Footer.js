@@ -1,8 +1,8 @@
 const navigation= [ 
-    {name:'About', href: '#'},
-    {name:'Jobs', href: '#'},
-    {name:'Store', href: '#'},
-    {name:'Terms and Conditions', href: '#'}
+    {name:'About', href: '/'},
+    {name:'Jobs', href: '/'},
+    {name:'Store', href: '/'},
+    {name:'Terms and Conditions', href: '/'}
 ]
 export default function Footer() {
   return (

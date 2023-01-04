@@ -54,9 +54,9 @@ async function getProduct(handle) {
   return product 
 }
 
-const products = await getProduct(id)
+const product = await getProduct(id)
 
 res.status(200)
-res.json(products)
+res.json(product)
 
 }
