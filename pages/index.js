@@ -31,7 +31,6 @@ export default function Home({ products, product_specific}) {
       <Hero/>
       <AddOn product_specific={product_specific}/>
       <ProductList products={products}/> 
-      
     </div>
   )
 }

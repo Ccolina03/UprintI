@@ -1,11 +1,12 @@
 import { formatter } from "../utils/helpers"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import ProductOptions from "./ProductOptions"
 import { CartContext } from "../context/shopContext"
 import useSWR from "swr"
 import axios from "axios"
 
-const fetchInventory = (url, id) =>(
+
+const fetcher = (url, id) =>(
   axios
     .get(url, {
       params: {
@@ -18,10 +19,11 @@ export default function ProductForm({ product }) {
  //Introducing SWR hook and passing url and id
   const { data: productInventory } = useSWR(
     ['/api/available', product.handle],
-    (url, id) => fetchInventory(url, id),
+    (url, id) => fetcher(url, id),
     { errorRetryCount: 3 }
   )
-  console.log(productInventory)
+  
+  const [existant, setExistant] = useState(true)
 
     const {addToCart} = useContext(CartContext)
 
@@ -79,6 +81,21 @@ export default function ProductForm({ product }) {
         })
     }
 
+    
+    useEffect(() => {
+      //checking product specific variant
+      if (productInventory) {
+        const checkExistant = productInventory?.variants.edges.filter(item => item.node.id === selectedVariant.id)
+        
+        //checking if boolean is true
+        if (checkExistant[0].node.availableForSale) {
+          setExistant(true)
+        } else {
+          setExistant(false)
+        }
+      }
+    }, [productInventory, selectedVariant])
+
     return (
     <div className="rounded 2xl shadow-lg p-4 flex flex-col w-full md:w-1/3 ">
         <h2 className="text-2xl font-bold"> {product.title} </h2>
@@ -99,10 +116,18 @@ export default function ProductForm({ product }) {
              />
         ))
       }
-      <button
+      {
+
+        existant ?
+        <button
       onClick={() => {
         addToCart(selectedVariant)
       }} className="bg-black text-white rounded-lg mt-3 px-2 py-3 hover:bg-gray800"> Add + To Card</button>
+      :
+
+      <button className=" rounded-lg mt-3 px-2 py-3 text-white bg-gray-800 cursor-not-allowed"> Sold Out</button>
+      }
+
     </div>
   )
     }
