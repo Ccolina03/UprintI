@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react"
 import ProductOptions from "./ProductOptions"
 import { CartContext } from "../context/shopContext"
 import useSWR from "swr"
-import axios from "axios"
+import axios, { all } from "axios"
 
 
 const fetcher = (url, id) =>(
@@ -27,19 +27,18 @@ export default function ProductForm({ product }) {
 
     const {addToCart} = useContext(CartContext)
 
-    //if product.variants.edges root exist then product has maybe color,size,etc., 
-    //variants are product specific one-by-one, 
 
+    //allVariantOptions returns specific features of each option
+    //allOptions creates object featuring variant specific option (Exm:{ Color: 'Black', Size: 'XXL' },)
+    
     const allVariantOptions= product.variants.edges?.map(variant => {
-        const allOptions = {} //one for each Variant
+        const allOptions = {} 
 
-        //exm: AllOptions['color'] = black, size,etc.
-        variant.node.selectedOptions.map(key => {
-            allOptions[key.name] = key.value
+        variant.node.selectedOptions.map(option => {
+            allOptions[option.name] = option.value
         }) 
         //end of loop inside first loop
-      
-        //quicker access to rest of product features
+
     return {
         title: product.title,
         id: variant.node.id,
@@ -52,25 +51,25 @@ export default function ProductForm({ product }) {
     }
     }) //end of first loop
 
-    //product.options is different to variants. options give you all possible option for color, size, etc in one set.
+    
+    
+    //Setting first option of variant as Default Value
     const defaultV = {}
     product.options.map(key => {
         defaultV[key.name]=key.values[0]
     })
 
-    //default Value will be first one in options. 
     
-    //both are set to first values from database
-
     const [selectedVariant, setSelectedVariant] =useState(allVariantOptions[0])
     const [selectedOptions, setSelectedOptions] = useState(defaultV)
     
 
+    //setOptions returns same state, but adding new option combination (option selector feature)
     function setOptions(name, value) {
         setSelectedOptions(prevState => {
             return {...prevState, [name]: value}
-            //return object where past state is speread, and add new name and value (from the options)
         })
+
     //setOption passes with this new object to ProductOptions
         const selection = {...selectedOptions, [name]: value}
 
@@ -96,6 +95,8 @@ export default function ProductForm({ product }) {
       }
     }, [productInventory, selectedVariant])
 
+
+    
     return (
     <div className="rounded 2xl shadow-lg p-4 flex flex-col w-full md:w-1/3 ">
         <h2 className="text-2xl font-bold"> {product.title} </h2>
@@ -105,6 +106,7 @@ export default function ProductForm({ product }) {
       {/* Once we get specific title and price, it will go obj destr. all possible name and values (exm: color= black, red, blue, etc)
       
           selectedOptions is a state that will be changed from product to product */}
+     
       {
         product.options.map(({ name, values}) => (
             <ProductOptions 

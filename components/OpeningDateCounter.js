@@ -1,38 +1,35 @@
-/*
-  Component made for Next.js v12
-  Instructions:
-    1. Line 18 contains the date on which you wish the counter to stop, MM/DD/YYYY
-    2. Change copy of the component to your own
-*/
-
 import React, { useState, useEffect } from 'react'
 
 export default function OpeningDateCounter() {
 
+  //4 states
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
 
+  //Change will happen once 
   useEffect(() => {
-    const target = new Date("05/05/2023 00:00:00")
+    const target = new Date("05/05/2023 00:00:00") //target date
     const interval = setInterval(() => {
-      const now = new Date()
-      const difference = target.getTime() - now.getTime()
-      const d = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const now = new Date().getTime() //Current time
+      const countDownDate = target.getTime() //target time
+      const difference = countDownDate - now  //time difference to display
+      
+      const d = Math.floor(difference / (1000 * 60 * 60 * 24))  //divide number over day, integer result
       setDays(d)
 
-      const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) //divide day over hour
       setHours(h)
 
-      const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
+      const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)) //divide hours over minutes
       setMinutes(m)
 
-      const s = Math.floor((difference % (1000 * 60)) / (1000))
+      const s = Math.floor((difference % (1000 * 60)) / (1000))//divide minutes over seconds
       setSeconds(s)
-    }, 1000)
+    }, 1000) //execute every second (1000 milliseconds)
 
-    return () => clearInterval(interval)
+    return () => clearInterval(interval) //clearing numbers when unmounting
   }, [])
 
   return (

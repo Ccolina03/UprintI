@@ -6,7 +6,7 @@ import {getProduct, getAllProducts} from '../../lib/shopify'
 //getStaticProps gets new in-depth product details from getStaticPaths and is now passed to ProductPage
 export default function ProductPage({product}) {
   return (
-    <div className='min-h-screen py-12 sm:pt-20'>
+    <div className='min-h-screen py-12 sm:pt-20'> 
       <ProductPageContent product = {product}/>
     </div>
   )

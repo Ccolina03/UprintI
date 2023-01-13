@@ -42,7 +42,9 @@ return (
             </div>
             <ProductForm product={product} />
         </div>
-            <p className="w-11/12 max-w-3xl pt-16 mx-auto space-y-8 md:space-x-4 lg:space-x-8">{product.description}</p>
+            <p className="w-11/12 max-w-3xl pt-16 mx-auto space-y-8 md:space-x-4 lg:space-x-8">
+                 {product.description}
+            </p>
             <RecommendedList current={product.id} products={product.collections.edges[0].node.products.edges}/>
         </div>
     )

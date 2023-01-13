@@ -4,6 +4,7 @@ import {createCheckout, updateCheckout} from '../lib/shopify'
 
 const CartContext=createContext()
 
+//whole application will have access to what is created in this function 
 export default function ShopProvider({children}) {
     const [cart, setCart] = useState([])
     const [cartOpen, setCartOpen]=useState(false)
@@ -28,11 +29,12 @@ export default function ShopProvider({children}) {
    
    
     async function addToCart(newItem){
-
+    
         setCartOpen(true) //Available Cart when item added
         if (cart.length ===0) {
             setCart([newItem])
           
+        //Checkout created with id and quantity from ProductForm button
         const checkout = await createCheckout(newItem.id, newItem.variantQuantity)
         setCheckoutId(checkout.id)
         setCheckoutUrl(checkout.webUrl)
