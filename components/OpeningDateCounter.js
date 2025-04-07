@@ -10,7 +10,7 @@ export default function OpeningDateCounter() {
 
   //Change will happen once 
   useEffect(() => {
-    const target = new Date("08/08/2025 00:00:00") //target date
+    const target = new Date("08/08/2026 00:00:00") //target date
     const interval = setInterval(() => {
       const now = new Date().getTime() //Current time
       const countDownDate = target.getTime() //target time
